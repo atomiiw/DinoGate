@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "DinoGate",
+  "version": "1.0.0",
+  "description": "Block distracting sites behind a dino game gate.",
+  "permissions": [
+    "declarativeNetRequest",
+    "storage",
+    "alarms",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.instagram.com/*"
+  ],
+  "background": {
+    "service_worker": "gate/background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "blocked_sites",
+        "enabled": true,
+        "path": "gate/rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.instagram.com/*"],
+      "js": ["gate/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {}
+}
